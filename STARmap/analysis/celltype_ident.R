@@ -100,7 +100,7 @@ top <- exp.markers %>%
   group_by(cluster) %>%
   slice_max(n = 3, order_by = avg_log2FC)
 
-# cluster 2
+# cluster 7
 exp_sub = FindSubCluster(exp_sub, "7", graph.name = "SCT_snn", resolution = 0.2, subcluster.name = "lung", algorithm = 4)
 exp_sub <- SetIdent(exp_sub, value = exp_sub@meta.data$lung)
 exp_sub.markers <- FindAllMarkers(exp_sub, features = marker$marker, only.pos = TRUE, min.pct = 0.10, logfc.threshold = 0.25)
@@ -108,7 +108,7 @@ top <- exp.markers %>%
   group_by(cluster) %>%
   slice_max(n = 3, order_by = avg_log2FC)
 
-# cluster 2
+# cluster 8
 exp_sub = FindSubCluster(exp_sub, "8", graph.name = "SCT_snn", resolution = 0.2, subcluster.name = "lung", algorithm = 4)
 exp_sub <- SetIdent(exp_sub, value = exp_sub@meta.data$lung)
 exp_sub.markers <- FindAllMarkers(exp_sub, features = marker$marker, only.pos = TRUE, min.pct = 0.10, logfc.threshold = 0.25)
