@@ -11,7 +11,7 @@ setwd('~/Desktop/STARmap/36hpi_250genes_sum/')
 
 sc.data <- Read10X(data.dir = "~/Desktop/STARmap/36hpi_250genes_sum/all_regions_1", gene.column = 1)
 marker <- read.table("marker_long.txt", header = 1)
-epi_marker <- read.tbale("epi_marker.txt", header = 1)
+epi_marker <- read.table("epi_marker.txt", header = 1)
 cell <- read.table("~/Desktop/STARmap/36hpi_250genes_sum/all_regions/barcodes.tsv", sep = "\t", row.names = 1)
 colnames(cell) <- c( "x", "y", "z", "volume", "np", "np_nuc", "np_cyto", "pctnuc", "pctcyto", "region")
 
@@ -169,7 +169,7 @@ DimPlot(epi_star, reduction = "umap", label=TRUE, repel = TRUE)
 
 
 #---- determine markers for each cluster
-epi_star.markers <- FindAllMarkers(epi_star, features = marker$marker)
+epi_star.markers <- FindAllMarkers(epi_star, features = epi_marker$marker)
 FeaturePlot(epi, features = epi_marker$marker)
 epi = FindSubCluster(epi, "1", graph.name = "SCT_snn", resolution = 0.2, subcluster.name = "lung", algorithm = 4)
 epi <- SetIdent(epi, value = epi@meta.data$lung)
