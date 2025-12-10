@@ -100,7 +100,7 @@ top <- sc.markers %>%
   group_by(cluster) %>%
   slice_max(n = 3, order_by = avg_log2FC)
 
-# cluster 2
+# cluster 7
 sc_sub = FindSubCluster(sc_sub, "7", graph.name = "SCT_snn", resolution = 0.2, subcluster.name = "lung", algorithm = 4)
 sc_sub <- SetIdent(sc_sub, value = sc_sub@meta.data$lung)
 sc_sub.markers <- FindAllMarkers(sc_sub, features = marker$marker, only.pos = TRUE, min.pct = 0.10, logfc.threshold = 0.25)
@@ -108,7 +108,7 @@ top <- sc.markers %>%
   group_by(cluster) %>%
   slice_max(n = 3, order_by = avg_log2FC)
 
-# cluster 2
+# cluster 8
 sc_sub = FindSubCluster(sc_sub, "8", graph.name = "SCT_snn", resolution = 0.2, subcluster.name = "lung", algorithm = 4)
 sc_sub <- SetIdent(sc_sub, value = sc_sub@meta.data$lung)
 sc_sub.markers <- FindAllMarkers(sc_sub, features = marker$marker, only.pos = TRUE, min.pct = 0.10, logfc.threshold = 0.25)
