@@ -48,8 +48,8 @@ hold on
 scatter([1:23], frac(epi_ind,:), 'kx')
 
 % plot error bars
-mean_frac = nanmean(frac2);
-stderr = nanstd(frac2)/sqrt(85);
+mean_frac = nanmean(frac);
+stderr = nanstd(frac)/sqrt(85);
 hold on; errorbar( mean_frac, stderr)
 
 %% intra-celltype statistics on fraction of IFN+ 
