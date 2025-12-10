@@ -373,7 +373,7 @@ sc <- RenameIdents(object = sc,
                           "21_1" = "MyoFB")
 sc <- subset(sc, idents = c("21", "22"), invert = TRUE)
 
-## 3----average cluster average 
+## 3----average cluster expression (scale.data)
 sc.average <- AverageExpression(sc, assay = 'SCT', slot = 'scale.data')
 write.table(sc.average$SCT,
             '251111_sc_cluster_average.txt', sep = '\t', row.names = T, col.names = T, quote = F)
