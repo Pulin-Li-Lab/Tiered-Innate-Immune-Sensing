@@ -374,11 +374,11 @@ sc <- RenameIdents(object = sc,
 sc <- subset(sc, idents = c("21", "22"), invert = TRUE)
 
 ## 3----average cluster average 
-sc.average <- AggregateExpression(sc)
-write.table(sc.average$RNA,
+sc.average <- AverageExpression(sc, assay = 'SCT', slot = 'scale.data')
+write.table(sc.average$SCT,
             '251111_sc_cluster_average.txt', sep = '\t', row.names = T, col.names = T, quote = F)
-cluster.averages <- Aggregatescression(star)
-write.table(cluster.average$RNA,
+cluster.averages <- AverageExpression(star, assay = 'SCT', slot = 'scale.data')
+write.table(cluster.averages$SCT,
             '251111_spatial_cluster_average.txt', sep = '\t', row.names = T, col.names = T, quote = F)
 
 ## 4---- label transfer
@@ -392,8 +392,15 @@ anchors <- FindTransferAnchors(reference = sc, query = star_label,
 predictions_cluster <- TransferData(anchorset = anchors, 
                                     refdata = Idents(sc), 
                                     dims = 1:30)
-star_label@meta.data$predicted_cluster = predictions_cluster$predicted.id
-star_label@meta.data$predicted_cluster_score = predictions_cluster$prediction.score.max
+pred_id = predictions_cluster$predicted.id
+pred_max = predictions_cluster$prediction.score.max
+
+# Keep only high-confidence predictions (>0.5)
+pred_id_filtered <- ifelse(pred_max > 0.5, pred_id, "Unidentified")
+
+# Store in metadata
+star_label$predicted_cluster       <- pred_id_filtered
+star_label$predicted_cluster_score <- pred_max
 
 
 
