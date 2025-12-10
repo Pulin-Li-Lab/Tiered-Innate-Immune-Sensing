@@ -64,11 +64,20 @@ fib = frac(:, 5:9);
 endo = frac(:, 10:13);
 immune = frac(:, 14:23);
 
-allcell = cat(1, epi(:), fib(:), endo(:), immune(:));
-g1 = repmat({'Epi'},length(epi(:)),1);
-g2 = repmat({'Fib'},length(fib(:)),1);
-g3 = repmat({'endo'},length(endo(:)),1);
-g4 = repmat({'immune'},length(immune(:)),1);
-g = [g1;g2;g3;g4];
-[p,tbl,stats] = anova1(allcell,g)
-results = multcompare(stats, "CriticalValueType","bonferroni");
+alpha = 0.05;
+numTests = 7;
+p_values = zeros(numTests, 1);
+[~, p_values(1)] = ttest2(epi(:), fib(:), 'Tail', 'both'); 
+[~, p_values(2)] = ttest2(fib(:), endo(:), 'Tail', 'both');
+[~, p_values(3)] = ttest2(endo(:), immune(:), 'Tail', 'both');
+[~, p_values(4)] = ttest2(fib(:), immune(:), 'Tail', 'both');
+[~, p_values(5)] = ttest2(epi(:), immune(:), 'Tail', 'both');
+[~, p_values(6)] = ttest2(epi(:), endo(:), 'Tail', 'both');
+[~, p_values(7)] = ttest2(fib(:), endo(:), 'Tail', 'both');
+
+% Apply Bonferroni Correction ---
+bonferroni_alpha = alpha / numTests;
+fprintf('Original Alpha: %.4f, Bonferroni Alpha: %.4f\n', alpha, bonferroni_alpha);
+
+% Determine Significant Results ---
+significant_results = p_values < bonferroni_alpha;
