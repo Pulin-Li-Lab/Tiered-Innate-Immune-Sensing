@@ -215,10 +215,10 @@ exp_label@active.ident <- factor(x = exp_label@active.ident, levels = my_levels)
 
 #----average cluster average 
 sc = readRDS('231006_day0_idents.RDS') # Seurat object for scRNA-seq
-sc.average <- AggregateExpression(sc, slot = 'scale.data')
+sc.average <- AggregateExpression(sc)
 write.table(sc.average$RNA,
             '251111_sc_cluster_average.txt', sep = '\t', row.names = T, col.names = T, quote = F)
-cluster.averages <- AggregateExpression(star, slot = 'scale.data')
+cluster.averages <- AggregateExpression(star)
 write.table(cluster.average$RNA,
             '251111_spatial_cluster_average.txt', sep = '\t', row.names = T, col.names = T, quote = F)
 
